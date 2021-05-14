@@ -1,0 +1,21 @@
+name: test annotations action
+
+on:
+  push:
+  pull_request:
+
+jobs:
+
+  Test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Getting code
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      uses: actions/setup-node@v1
+      run: npm install -g make
+
+    - name: Run check
+      uses: ./
