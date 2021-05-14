@@ -4,12 +4,6 @@ on:
   push:
   pull_request:
 
-inputs:
-
-  annotations:
-    description: Should the script output annotations?
-    default: true
-
 jobs:
 
   Test:
@@ -25,7 +19,5 @@ jobs:
     - name: Install dependencies
       run: npm install -g make
 
-    - name: Run sample app
-      run: |
-        cd ./hello/
-        make
+    - name: Run check
+      uses: ./

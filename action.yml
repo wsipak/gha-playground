@@ -1,0 +1,13 @@
+name: Check
+description: Formatter check
+
+inputs:
+
+  annotations:
+    description: Should the script output annotations?
+    default: true
+
+runs:
+  run: | 
+    cd ./hello/
+    make
