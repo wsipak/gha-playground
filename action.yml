@@ -8,5 +8,6 @@ inputs:
     default: true
 
 runs:
-  cd ./hello/
-  make
+  run: | 
+    cd ./hello/
+    make
