@@ -6,3 +6,10 @@ inputs:
   annotations:
     description: Should the script output annotations?
     default: true
+
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        cd ./hello/
+        make

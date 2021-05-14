@@ -19,10 +19,5 @@ jobs:
     - name: Install dependencies
       run: npm install -g make
 
-    - name: Run check
+    - name: Run sample
       uses: ./
-
-    - name: Run sample app
-      run: | 
-        cd ./hello/
-        make
