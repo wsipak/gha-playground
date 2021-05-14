@@ -13,3 +13,4 @@ runs:
     - run: |
         cd ./hello/
         make
+      shell: bash
