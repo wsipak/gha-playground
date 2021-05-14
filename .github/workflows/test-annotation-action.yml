@@ -13,8 +13,10 @@ jobs:
     - name: Getting code
       uses: actions/checkout@v2
 
-    - name: Install dependencies
+    - name: Set up node
       uses: actions/setup-node@v1
+
+    - name: Install dependencies
       run: npm install -g make
 
     - name: Run check
