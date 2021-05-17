@@ -8,9 +8,5 @@ inputs:
     default: true
 
 runs:
-  using: "composite"
-  steps:
-    - run: |
-        cd ./hello/
-        make
-      shell: bash
+  using: 'docker'
+  image: 'Dockerfile'
