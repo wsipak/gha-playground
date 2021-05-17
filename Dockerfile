@@ -3,8 +3,7 @@ FROM alpine:latest
 RUN apk add build-base clang git
 
 RUN clang-format --version
-COPY ./hello/* /hello/
-RUN clang-format /hello/hello.c > /hello/hello-formatted.c
-COPY ./run-diff.sh /usr/bin/
-RUN chmod +x /usr/bin/run-diff.sh
-ENTRYPOINT ["/usr/bin/run-diff.sh"]
+COPY * /format-check/
+RUN clang-format /format-check/hello/hello.c > /format-check/hello/hello-formatted.c
+RUN chmod +x /format-check/run-diff.sh
+ENTRYPOINT ["/format-check/run-diff.sh"]

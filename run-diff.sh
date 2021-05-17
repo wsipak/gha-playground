@@ -1,4 +1,3 @@
 #!/bin/bash
 
-cd /hello
-git diff hello.c hello-formatted.c
+git diff /format-check/hello/hello.c /format-check/hello/hello-formatted.c
