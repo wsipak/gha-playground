@@ -19,15 +19,12 @@ jobs:
     - name: Install dependencies
       run: npm install -g make git clang-format
 
-    - name: Run formatter
+    - name: Run formatter and generate annotations
       run: |
         chmod +x ./run-formatter.sh
         /usr/bin/bash ./run-formatter.sh
         DIFF_LOG=`/usr/bin/bash ./run-formatter.sh`
-
-    - name: Generate annotations
-      run: |
-        DIFF_TEXT=`cat $DIFF_LOG`
+        cat $DIFF_LOG > $DIFF_TEXT
         echo $DIFF_TEXT
         LINE=`cut -sd "@" -f3 $DIFF_LOG | cut -d "," -f2 | cut -f1 -d " "`
         echo $LINE
