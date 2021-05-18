@@ -4,6 +4,7 @@ get_format_diff () {
 	echo $1 $2 $3
 	clang-format $1 > $2
 	diff -u $1 $2 > $3
+	echo $3
 }
 
 DIR="./hello"
@@ -17,6 +18,7 @@ for file in $DIR/*.c; do
 
 	get_format_diff $FILE_IN $FILE_OUT $DIFF_LOG
 
+	cat $DIFF_LOG
 	DIFF_TEXT=`cat $DIFF_LOG`
 	echo $DIFF_TEXT
 	DIFF_TEXT="${DIFF_TEXT//'%'/'%25'}"
