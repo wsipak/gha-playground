@@ -20,11 +20,4 @@ jobs:
 
     - name: Run formatter and generate annotations
       run: |
-        chmod +x ./run-formatter.sh
-        DIFF_LOG=`./run-formatter.sh`
-        DIFF_TEXT=`cat $DIFF_LOG`
-        DIFF_TEXT="${DIFF_TEXT//'%'/'%25'}"
-        DIFF_TEXT="${DIFF_TEXT//$'\n'/'%0A'}"
-        DIFF_TEXT="${DIFF_TEXT//$'\r'/'%0D'}"
-        LINE=`cut -sd "@" -f3 $DIFF_LOG | cut -d "," -f2 | cut -f1 -d " "`
-        echo "::error file=./hello/hello.c,line=$LINE,col=1::$DIFF_TEXT"
+		. generate-annotations.sh
