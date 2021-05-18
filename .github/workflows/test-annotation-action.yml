@@ -22,6 +22,7 @@ jobs:
     - name: Run formatter
       run: |
         chmod +x ./run-formatter.sh
+        /usr/bin/bash ./run-formatter.sh
         DIFF_LOG=`/usr/bin/bash ./run-formatter.sh`
 
     - name: Generate annotations
