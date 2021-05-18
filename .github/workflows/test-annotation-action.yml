@@ -28,5 +28,7 @@ jobs:
     - name: Generate annotations
       run: |
         DIFF_TEXT=`cat $DIFF_LOG`
+        echo $DIFF_TEXT
         LINE=`cut -sd "@" -f3 $DIFF_LOG | cut -d "," -f2 | cut -f1 -d " "`
+        echo $LINE
         echo "::error file=./hello/hello.c,line=$LINE,col=1::$DIFF_TEXT"
