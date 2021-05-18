@@ -19,5 +19,10 @@ jobs:
     - name: Install dependencies
       run: npm install -g make git
 
-    - name: Run sample
-      uses: ./
+    - name: Run formatter
+      run: echo "here foramtter will be called"
+
+    - name: Generate annotations
+      run: |
+        text="test annotation"
+        echo "::error file=./hello/hello.c,line=1,col=1::$text"
