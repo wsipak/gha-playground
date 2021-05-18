@@ -17,12 +17,15 @@ jobs:
       uses: actions/setup-node@v1
 
     - name: Install dependencies
-      run: npm install -g make git
+      run: npm install -g make git clang-format
 
     - name: Run formatter
-      run: echo "here foramtter will be called"
+      run: |
+        chmod +x ./run-formatter.sh
+        DIFF_LOG=`./run-formatter.sh`
 
     - name: Generate annotations
       run: |
-        text="test annotation"
-        echo "::error file=./hello/hello.c,line=1,col=1::$text"
+        DIFF_TEXT=`cat $DIFF_LOG`
+        LINE=`cut -sd "@" -f3 $DIFF_LOG | cut -d "," -f2 | cut -f1 -d " "`
+        echo "::error file=./hello/hello.c,line=$LINE,col=1::$DIFF_TEXT"
