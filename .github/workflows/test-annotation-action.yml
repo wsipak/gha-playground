@@ -20,4 +20,4 @@ jobs:
 
     - name: Run formatter and generate annotations
       run: |
-		. generate-annotations.sh
+        . generate-annotations.sh
