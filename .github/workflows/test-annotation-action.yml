@@ -25,6 +25,9 @@ jobs:
         /usr/bin/bash ./run-formatter.sh
         DIFF_LOG=`/usr/bin/bash ./run-formatter.sh`
         DIFF_TEXT=`cat $DIFF_LOG`
+        DIFF_TEXT="${DIFF_TEXT//'%'/'%25'}"
+        DIFF_TEXT="${DIFF_TEXT//$'\n'/'%0A'}"
+        DIFF_TEXT="${DIFF_TEXT//$'\r'/'%0D'}"
         echo $DIFF_TEXT
         LINE=`cut -sd "@" -f3 $DIFF_LOG | cut -d "," -f2 | cut -f1 -d " "`
         echo $LINE
