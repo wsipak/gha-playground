@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 FILE_IN=./hello/hello.c
 FILE_OUT=./hello/hello-formatted.c
