@@ -24,7 +24,7 @@ jobs:
         chmod +x ./run-formatter.sh
         /usr/bin/bash ./run-formatter.sh
         DIFF_LOG=`/usr/bin/bash ./run-formatter.sh`
-        cat $DIFF_LOG > $DIFF_TEXT
+        DIFF_TEXT=`cat $DIFF_LOG`
         echo $DIFF_TEXT
         LINE=`cut -sd "@" -f3 $DIFF_LOG | cut -d "," -f2 | cut -f1 -d " "`
         echo $LINE
