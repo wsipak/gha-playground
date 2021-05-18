@@ -10,6 +10,7 @@ for file in $DIR/*.c; do
 	DIFF_LOG=$FILE_IN-diff.log
 
 	# run formatter
+	echo $FILE_IN $FILE_OUT $_DIFF_LOG
 	clang-format $FILE_IN > $FILE_OUT
 	diff -u $FILE_IN $FILE_OUT > $DIFF_LOG
 
