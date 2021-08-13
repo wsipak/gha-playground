@@ -32,14 +32,15 @@ jobs:
             });
             var fs = require('fs');
             fs.writeFileSync('${{github.workspace}}/linter-log.zip', Buffer.from(download.data));
-      - run: |
+      - name: 'Unzip artifact'
+        run: |
           unzip linter-log.zip
           cat ./verible-linter-output.txt
           cat ./issue_num
       - id: get-comment-body
         run: |
-          body=$(cat ./verible-linter-output.txt)
-          echo ::set-output name=body::$body
+          body=$(printf "\n\`\`\`\n" && cat ./verible-linter-output.log && printf "\n\`\`\`\n")
+          echo ::set-output name=body::"$body"
       - id: get-pr-number
         run: |
           num=$(cat ./issue_num)
