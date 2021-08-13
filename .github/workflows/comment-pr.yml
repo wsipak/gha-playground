@@ -57,6 +57,7 @@ jobs:
           -level="info" \
           -fail-on-error="false" \
           -filter-mode="nofilter" \
+          -diff="git diff master"
       - name: Post comment
         uses: KeisukeYamashita/create-comment@v1
         with:
