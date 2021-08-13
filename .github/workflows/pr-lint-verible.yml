@@ -20,15 +20,6 @@ jobs:
         run: |
           echo ${{ github.event.number }} > issue_num
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
-        if: failure()
-        with:
-          name: linter-log
-          path: |
-            ./verible-verilog-lint.log
-            ./verible-linter-output.txt
-            ./issue_num
       - uses: reviewdog/action-setup@v1
         with:
           reviewdog_version: latest
@@ -42,3 +33,12 @@ jobs:
           -level="info" \
           -fail-on-error="false" \
           -filter-mode="nofilter"
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: linter-log
+          path: |
+            ./verible-verilog-lint.log
+            ./verible-linter-output.txt
+            ./issue_num
