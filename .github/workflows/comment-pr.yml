@@ -33,7 +33,7 @@ jobs:
             var fs = require('fs');
             fs.writeFileSync('${{github.workspace}}/linter-log.zip', Buffer.from(download.data));
       - run: |
-          unzip tests_summary.zip
+          unzip linter-log.zip
           cat ./verible-linter-output.json
           cat ./issue_num
       - id: get-pr-number
