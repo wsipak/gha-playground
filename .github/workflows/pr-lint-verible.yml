@@ -26,5 +26,6 @@ jobs:
         with:
           name: linter-log
           path: |
+            ./verible-verilog-lint.log
             ./verible-linter-output.txt
             ./issue_num
