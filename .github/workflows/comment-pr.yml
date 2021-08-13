@@ -55,11 +55,10 @@ jobs:
         run: |
           cat ./verible-linter-output.txt |
           reviewdog -efm="%f:%l:%c: %m" \
-          -reporter=github-check \
+          -reporter=github-pr-review \
           -level="info" \
           -fail-on-error="false" \
-          -filter-mode="nofilter" \
-          -diff="git diff master"
+          -filter-mode="nofilter"
       - name: Post comment
         uses: KeisukeYamashita/create-comment@v1
         with:
