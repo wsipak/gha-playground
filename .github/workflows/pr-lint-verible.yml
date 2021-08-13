@@ -1,0 +1,30 @@
+name: pr-lint-verible
+
+on:
+  pull_request:
+
+jobs:
+  test_full:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: antmicro/verible-actions@main
+        with:
+          paths: |
+            ./rtl
+          type: 'full'
+          config_file: 'config.rules'
+
+      - name: Prepare artifacts for PR commenter
+        if: ${{ github.event_name == 'pull_request' && failure() }}
+        run: |
+          echo ${{ github.event.number }} > issue_num
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: linter-log
+          path: |
+            ./verible-linter-output.json
+            ./issue_num
