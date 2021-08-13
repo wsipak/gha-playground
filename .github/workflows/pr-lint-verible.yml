@@ -4,7 +4,7 @@ on:
   pull_request:
 
 jobs:
-  test_full:
+  test_brief:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -12,7 +12,7 @@ jobs:
         with:
           paths: |
             ./rtl
-          type: 'full'
+          type: 'brief'
           config_file: 'config.rules'
 
       - name: Prepare artifacts for PR commenter
@@ -26,5 +26,5 @@ jobs:
         with:
           name: linter-log
           path: |
-            ./verible-linter-output.json
+            ./verible-linter-output.txt
             ./issue_num
