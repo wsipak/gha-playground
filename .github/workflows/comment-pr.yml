@@ -45,7 +45,7 @@ jobs:
           num=$(cat ./issue_num)
           echo ::set-output name=num::$num
       - run: |
-          echo ${{ github.event.workflow_run.head_branch }}
+          echo branch name: ${{ github.event.workflow_run.head_branch }}
       - uses: reviewdog/action-setup@v1
         with:
           reviewdog_version: latest
@@ -58,7 +58,8 @@ jobs:
           -reporter=github-check \
           -level="info" \
           -fail-on-error="false" \
-          -filter-mode="nofilter"
+          -filter-mode="nofilter" \
+          -diff="git diff master"
       - name: Post comment
         uses: KeisukeYamashita/create-comment@v1
         with:
