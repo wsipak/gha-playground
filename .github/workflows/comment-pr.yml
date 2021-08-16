@@ -39,7 +39,7 @@ jobs:
           cat ./issue_num
       - id: get-comment-body
         run: |
-          body=$(printf "\`\`\`\n" && cat ./verible-verilog-lint.log && printf "\n\`\`\`\n")
+          body=$(printf "\`\`\`" && cat ./verible-verilog-lint.log && printf "\`\`\`\n")
           echo ::set-output name=body::"$body"
       - id: get-pr-number
         run: |
