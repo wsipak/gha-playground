@@ -18,7 +18,6 @@ jobs:
             ./rtl
           type: 'brief'
           config_file: 'config.rules'
-          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Prepare artifacts for PR commenter
         if: ${{ github.event_name == 'pull_request' && failure() }}
