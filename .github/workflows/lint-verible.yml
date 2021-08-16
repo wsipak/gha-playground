@@ -1,0 +1,16 @@
+name: lint-verible
+
+on:
+  push:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: antmicro/verible-actions@main
+        with:
+          paths: |
+            ./rtl
+          config_file: 'config.rules'
