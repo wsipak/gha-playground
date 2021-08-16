@@ -58,8 +58,7 @@ jobs:
         run: |
           cat ./verible-verilog-lint.log |
           reviewdog -efm="%f:%l:%c: %m" \
-          -reporter=github-pr-review \
-          -level="info" \
+          -reporter=github-check \
           -fail-on-error="false" \
           -filter-mode="nofilter"
       - name: Post comment
