@@ -15,17 +15,3 @@ jobs:
             ./rtl
           config_file: 'config.rules'
           github_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Prepare artifacts for PR commenter
-        if: failure()
-        run: |
-          echo ${{ github.event.number }} > issue_num
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
-        if: failure()
-        with:
-          name: linter-log
-          path: |
-            ./verible-verilog-lint.log
-            ./issue_num
