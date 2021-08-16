@@ -8,9 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: reviewdog/action-setup@v1
-        with:
-          reviewdog_version: latest
 
       - uses: antmicro/verible-actions@main
         with:
