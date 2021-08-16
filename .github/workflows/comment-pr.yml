@@ -10,7 +10,7 @@ jobs:
   Comment:
     name: Comment
     runs-on: ubuntu-18.04
-    #if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'failure' }}
+    if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'failure' }}
     steps:
       - name: 'Download artifact'
         uses: actions/github-script@v3.1.0
@@ -35,7 +35,7 @@ jobs:
       - name: 'Unzip artifact'
         run: |
           unzip linter-log.zip
-          cat ./verible-linter-output.txt
+          cat ./verible-verilog-lint.log
           cat ./issue_num
       - id: get-comment-body
         run: |

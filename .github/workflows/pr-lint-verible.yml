@@ -4,7 +4,7 @@ on:
   pull_request:
 
 jobs:
-  test_brief:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,25 +17,9 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Prepare artifacts for PR commenter
-        if: ${{ github.event_name == 'pull_request' && failure() }}
+        if: failure()
         run: |
           echo ${{ github.event.number }} > issue_num
-
-      #- uses: reviewdog/action-setup@v1
-      #  if: failure()
-      #  with:
-      #    reviewdog_version: latest
-      #- name: Run reviewdog
-      #  if: failure()
-      #  env:
-      #    REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #  run: |
-      #    cat ./verible-verilog-lint.log |
-      #    reviewdog -efm="%f:%l:%c: %m" \
-      #    -reporter=github-pr-review \
-      #    -fail-on-error="false" \
-      #    -filter-mode="nofilter"
-      #   #-diff="git diff master"
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
@@ -44,5 +28,4 @@ jobs:
           name: linter-log
           path: |
             ./verible-verilog-lint.log
-            ./verible-linter-output.txt
             ./issue_num
