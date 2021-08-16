@@ -40,6 +40,8 @@ jobs:
       - id: get-comment-body
         run: |
           body=$(printf "\`\`\`" && cat ./verible-verilog-lint.log && printf "\`\`\`\n")
+          body="${body//$'\n'/'%0A'}"
+          body="${body//$'\r'/'%0D'}"
           echo ::set-output name=body::"$body"
       - id: get-pr-number
         run: |
