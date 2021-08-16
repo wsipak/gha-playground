@@ -38,8 +38,8 @@ jobs:
           reviewdog -efm="%f:%l:%c: %m" \
           -reporter=github-pr-review \
           -fail-on-error="false" \
-          -diff="git diff master"
-         #-filter-mode="nofilter"
+          -filter-mode="nofilter"
+         #-diff="git diff master"
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
