@@ -43,3 +43,13 @@ jobs:
         with:
           exclude_paths: |
             ./rtl/ibex_decoder.sv
+
+  test4:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: antmicro/verible-actions@main
+        with:
+          exclude_paths: |
+            ./rtl
