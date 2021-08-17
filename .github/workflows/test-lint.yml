@@ -28,6 +28,8 @@ jobs:
             ./rtl
           exclude_paths: |
             ./rtl/ibex_alu.sv
+            ./rtl/ibex_csr.sv
+            ./rtl/ibex_decoder.sv
           config_file: 'config.rules'
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reviewdog_reporter: 'github-check'
