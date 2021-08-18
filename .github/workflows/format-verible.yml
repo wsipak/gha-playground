@@ -1,4 +1,4 @@
-name: lint-verible
+name: format-verible
 
 on:
   push:
@@ -9,8 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: antmicro/verible-actions@main
+      - uses: antmicro/verible-actions@format
         with:
           paths: |
             ./rtl
-          config_file: 'config.rules'
