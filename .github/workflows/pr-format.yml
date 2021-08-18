@@ -1,4 +1,4 @@
-name: pr-lint-verible
+name: pr-format
 
 on:
   pull_request:
