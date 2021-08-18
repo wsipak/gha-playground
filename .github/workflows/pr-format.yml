@@ -15,11 +15,11 @@ jobs:
         run: echo "$GITHUB_CONTEXT"
 
       - run: |
-          docker pull restyled/restyler-verible
           docker run --rm \
           --env "GITHUB_ACCESS_TOKEN=${{ secrets.GITHUB_TOKEN }}" \
           --volume /tmp:/tmp \
           --volume /var/run/docker.sock:/var/run/docker.sock \
-          restyled/restyler-verible "${{ github.repository }}"#"${{ github.event.number}}"
+          restyled/restyler-verible:d0fda86e908214e710bb160950f002ef1e8538bf \
+          ${{ github.repository }}#${{ github.event.number}}
           
         shell: bash
