@@ -19,5 +19,5 @@ jobs:
           --env "GITHUB_ACCESS_TOKEN=${{ secrets.GITHUB_TOKEN }}" \
           --volume /tmp:/tmp \
           --volume /var/run/docker.sock:/var/run/docker.sock \
-          restyled/restyler "${{ github.repository }}""${{ github.event.number}}"
+          restyled/restyler "${{ github.repository }}"#"${{ github.event.number}}"
         shell: bash
