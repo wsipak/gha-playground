@@ -13,5 +13,6 @@ statuses:
 request_review: none
 labels: []
 restylers_version: stable
+
 restylers:
-  - verible
+    - "*"
