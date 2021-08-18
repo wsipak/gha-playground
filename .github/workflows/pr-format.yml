@@ -9,9 +9,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: |
-          echo "$GITHUB_CONTEXT"
-        shell: bash
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
         #- run: |
         #    docker run --rm \
         #    --env "GITHUB_ACCESS_TOKEN=${{ secrets.GITHUB_TOKEN }}" \
