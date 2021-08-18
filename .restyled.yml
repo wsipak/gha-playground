@@ -1,8 +1,8 @@
 enabled: true
-exclude: []
-changed_paths:
-  maximum: 1000
-  outcome: error
+
+exclude:
+  - ".github/workflows/**/*"
+
 remote_files: []
 auto: false
 comments: false
