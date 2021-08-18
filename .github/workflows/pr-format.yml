@@ -1,0 +1,21 @@
+name: pr-lint-verible
+
+on:
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - run: |
+          echo "${{ github.event }}"
+        shell: bash
+        #- run: |
+        #    docker run --rm \
+        #    --env "GITHUB_ACCESS_TOKEN=${{ secrets.GITHUB_TOKEN }}" \
+        #    --volume /tmp:tmp \
+        #    --volume /var/run/docker.sock:/var/run/docker.sock \
+        #    restyled/restyler "<owner>/<name>#<number>"
+        #  shell: bash
