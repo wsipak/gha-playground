@@ -20,6 +20,6 @@ jobs:
           --volume /tmp:/tmp \
           --volume /var/run/docker.sock:/var/run/docker.sock \
           restyled/restyler-verible:d0fda86e908214e710bb160950f002ef1e8538bf \
-          "${{ github.repository }}#${{ github.event.number}}"
+          rtl/*.sv
           
         shell: bash
