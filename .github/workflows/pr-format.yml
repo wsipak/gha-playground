@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - run: |
-          echo "${{ github.event }}"
+          echo "$GITHUB_CONTEXT"
         shell: bash
         #- run: |
         #    docker run --rm \
