@@ -1,13 +1,10 @@
-name: test print env
+name: test-pr
 
 on:
-  workflow_run:
-    workflows: ['test-pr']
-    types:
-      - completed
+  pull_request:
 
 jobs:
-  test_triggered:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
