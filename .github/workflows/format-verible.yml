@@ -13,3 +13,4 @@ jobs:
         with:
           paths: |
             ./rtl/*.sv
+          github_token: ${{ secrets.GITHUB_TOKEN }}
