@@ -12,4 +12,4 @@ jobs:
       - uses: antmicro/verible-actions@format
         with:
           paths: |
-            ./rtl
+            ./rtl/*.sv
