@@ -31,6 +31,8 @@ jobs:
                artifact_id: matchArtifact.id,
                archive_format: 'zip',
             });
+            var fs = require('fs');
+            fs.writeFileSync('${{github.workspace}}/event.json.zip', Buffer.from(download.data));
       - run: |
           unzip event.json.zip
       - name: 'Backup the existing event file and temporarily use the fetched one'
