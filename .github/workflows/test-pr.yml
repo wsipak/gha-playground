@@ -16,3 +16,9 @@ jobs:
           echo "$GITHUB_CONTEXT"
           echo "$GITHUB_EVENT_PATH"
           cat "$GITHUB_EVENT_PATH"
+
+      - name: Upload event file as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: event.json
+          path: "$GITHUB_EVENT_PATH"
