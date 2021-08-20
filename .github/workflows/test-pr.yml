@@ -17,8 +17,11 @@ jobs:
           echo "$GITHUB_EVENT_PATH"
           cat "$GITHUB_EVENT_PATH"
 
+      - name: Copy event file
+        run: cp "$GITHUB_EVENT_PATH" ./event.json
+
       - name: Upload event file as artifact
         uses: actions/upload-artifact@v2
         with:
           name: event.json
-          path: ${{ env.GITHUB_EVENT_PATH }}
+          path: event.json
