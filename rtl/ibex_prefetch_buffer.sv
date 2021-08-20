@@ -10,19 +10,19 @@
  * paths to the instruction cache.
  */
 module ibex_prefetch_buffer #(
-  parameter bit BranchPredictor = 1'b0,
-  parameter bit ResetAll        = 1'b0
+    parameter bit BranchPredictor = 1'b0,
+    parameter bit ResetAll        = 1'b0
 ) (
-    input  logic        clk_i,
-    input  logic        rst_ni,
+    input logic clk_i,
+    input logic rst_ni,
 
-    input  logic        req_i,
+    input logic req_i,
 
-    input  logic        branch_i,
-    input  logic        branch_spec_i,
-    input  logic        predicted_branch_i,
-    input  logic        branch_mispredict_i,
-    input  logic [31:0] addr_i,
+    input logic        branch_i,
+    input logic        branch_spec_i,
+    input logic        predicted_branch_i,
+    input logic        branch_mispredict_i,
+    input logic [31:0] addr_i,
 
 
     input  logic        ready_i,
@@ -43,38 +43,38 @@ module ibex_prefetch_buffer #(
     input  logic        instr_rvalid_i,
 
     // Prefetch Buffer Status
-    output logic        busy_o
+    output logic busy_o
 );
 
-  localparam int unsigned NUM_REQS  = 2;
+  localparam int unsigned NUM_REQS = 2;
 
-  logic                branch_suppress;
-  logic                valid_new_req, valid_req;
-  logic                valid_req_d, valid_req_q;
-  logic                discard_req_d, discard_req_q;
-  logic                gnt_or_pmp_err, rvalid_or_pmp_err;
+  logic branch_suppress;
+  logic valid_new_req, valid_req;
+  logic valid_req_d, valid_req_q;
+  logic discard_req_d, discard_req_q;
+  logic gnt_or_pmp_err, rvalid_or_pmp_err;
   logic [NUM_REQS-1:0] rdata_outstanding_n, rdata_outstanding_s, rdata_outstanding_q;
   logic [NUM_REQS-1:0] branch_discard_n, branch_discard_s, branch_discard_q;
   logic [NUM_REQS-1:0] rdata_pmp_err_n, rdata_pmp_err_s, rdata_pmp_err_q;
   logic [NUM_REQS-1:0] rdata_outstanding_rev;
 
-  logic [31:0]         stored_addr_d, stored_addr_q;
-  logic                stored_addr_en;
-  logic [31:0]         fetch_addr_d, fetch_addr_q;
-  logic                fetch_addr_en;
-  logic [31:0]         branch_mispredict_addr;
-  logic [31:0]         instr_addr, instr_addr_w_aligned;
+  logic [31:0] stored_addr_d, stored_addr_q;
+  logic stored_addr_en;
+  logic [31:0] fetch_addr_d, fetch_addr_q;
+  logic        fetch_addr_en;
+  logic [31:0] branch_mispredict_addr;
+  logic [31:0] instr_addr, instr_addr_w_aligned;
   logic                instr_or_pmp_err;
 
   logic                fifo_valid;
-  logic [31:0]         fifo_addr;
+  logic [        31:0] fifo_addr;
   logic                fifo_ready;
   logic                fifo_clear;
   logic [NUM_REQS-1:0] fifo_busy;
 
   logic                valid_raw;
 
-  logic [31:0]         addr_next;
+  logic [        31:0] addr_next;
 
   logic                branch_or_mispredict;
 
@@ -110,27 +110,27 @@ module ibex_prefetch_buffer #(
   assign fifo_ready = ~&(fifo_busy | rdata_outstanding_rev);
 
   ibex_fetch_fifo #(
-    .NUM_REQS (NUM_REQS),
-    .ResetAll (ResetAll)
+      .NUM_REQS(NUM_REQS),
+      .ResetAll(ResetAll)
   ) fifo_i (
-      .clk_i                 ( clk_i             ),
-      .rst_ni                ( rst_ni            ),
+      .clk_i (clk_i),
+      .rst_ni(rst_ni),
 
-      .clear_i               ( fifo_clear        ),
-      .busy_o                ( fifo_busy         ),
+      .clear_i(fifo_clear),
+      .busy_o (fifo_busy),
 
-      .in_valid_i            ( fifo_valid        ),
-      .in_addr_i             ( fifo_addr         ),
-      .in_rdata_i            ( instr_rdata_i     ),
-      .in_err_i              ( instr_or_pmp_err  ),
+      .in_valid_i(fifo_valid),
+      .in_addr_i (fifo_addr),
+      .in_rdata_i(instr_rdata_i),
+      .in_err_i  (instr_or_pmp_err),
 
-      .out_valid_o           ( valid_raw         ),
-      .out_ready_i           ( ready_i           ),
-      .out_rdata_o           ( rdata_o           ),
-      .out_addr_o            ( addr_o            ),
-      .out_addr_next_o       ( addr_next         ),
-      .out_err_o             ( err_o             ),
-      .out_err_plus2_o       ( err_plus2_o       )
+      .out_valid_o    (valid_raw),
+      .out_ready_i    (ready_i),
+      .out_rdata_o    (rdata_o),
+      .out_addr_o     (addr_o),
+      .out_addr_next_o(addr_next),
+      .out_err_o      (err_o),
+      .out_err_plus2_o(err_plus2_o)
   );
 
   //////////////
@@ -232,7 +232,7 @@ module ibex_prefetch_buffer #(
     assign unused_predicted_branch = predicted_branch_i;
     assign unused_addr_next        = addr_next;
 
-    assign branch_mispredict_addr = '0;
+    assign branch_mispredict_addr  = '0;
   end
 
   // 2. fetch_addr_q
@@ -240,11 +240,15 @@ module ibex_prefetch_buffer #(
   // Update on a branch or as soon as a request is issued
   assign fetch_addr_en = branch_or_mispredict | (valid_new_req & ~valid_req_q);
 
-  assign fetch_addr_d = (branch_i            ? addr_i :
-                         branch_mispredict_i ? {branch_mispredict_addr[31:2], 2'b00} :
-                                               {fetch_addr_q[31:2], 2'b00}) +
-                        // Current address + 4
-                        {{29{1'b0}},(valid_new_req & ~valid_req_q),2'b00};
+  assign fetch_addr_d = (branch_i ? addr_i : branch_mispredict_i ? {
+    branch_mispredict_addr[31:2], 2'b00
+  } : {
+    fetch_addr_q[31:2], 2'b00
+  }) +
+  // Current address + 4
+  {
+    {29{1'b0}}, (valid_new_req & ~valid_req_q), 2'b00
+  };
 
   if (ResetAll) begin : g_fetch_addr_ra
     always_ff @(posedge clk_i or negedge rst_ni) begin
@@ -279,8 +283,7 @@ module ibex_prefetch_buffer #(
     if (i == 0) begin : g_req0
       // A request becomes outstanding once granted, and is cleared once the rvalid is received.
       // Outstanding requests shift down the queue towards entry 0.
-      assign rdata_outstanding_n[i] = (valid_req & gnt_or_pmp_err) |
-                                      rdata_outstanding_q[i];
+      assign rdata_outstanding_n[i] = (valid_req & gnt_or_pmp_err) | rdata_outstanding_q[i];
       // If a branch is received at any point while a request is outstanding, it must be tracked
       // to ensure we discard the data once received
       assign branch_discard_n[i]    = (valid_req & gnt_or_pmp_err & discard_req_d) |
@@ -291,8 +294,8 @@ module ibex_prefetch_buffer #(
                                       rdata_pmp_err_q[i];
 
     end else begin : g_reqtop
-    // Entries > 0 consider the FIFO fill state to calculate their next state (by checking
-    // whether the previous entry is valid)
+      // Entries > 0 consider the FIFO fill state to calculate their next state (by checking
+      // whether the previous entry is valid)
 
       assign rdata_outstanding_n[i] = (valid_req & gnt_or_pmp_err &
                                        rdata_outstanding_q[i-1]) |
@@ -308,12 +311,15 @@ module ibex_prefetch_buffer #(
   end
 
   // Shift the entries down on each instr_rvalid_i
-  assign rdata_outstanding_s = rvalid_or_pmp_err ? {1'b0,rdata_outstanding_n[NUM_REQS-1:1]} :
-                                                   rdata_outstanding_n;
-  assign branch_discard_s    = rvalid_or_pmp_err ? {1'b0,branch_discard_n[NUM_REQS-1:1]} :
-                                                   branch_discard_n;
-  assign rdata_pmp_err_s     = rvalid_or_pmp_err ? {1'b0,rdata_pmp_err_n[NUM_REQS-1:1]} :
-                                                   rdata_pmp_err_n;
+  assign rdata_outstanding_s = rvalid_or_pmp_err ? {
+    1'b0, rdata_outstanding_n[NUM_REQS-1:1]
+  } : rdata_outstanding_n;
+  assign branch_discard_s = rvalid_or_pmp_err ? {
+    1'b0, branch_discard_n[NUM_REQS-1:1]
+  } : branch_discard_n;
+  assign rdata_pmp_err_s = rvalid_or_pmp_err ? {
+    1'b0, rdata_pmp_err_n[NUM_REQS-1:1]
+  } : rdata_pmp_err_n;
 
   // Push a new entry to the FIFO once complete (and not cancelled by a branch)
   assign fifo_valid = rvalid_or_pmp_err & ~branch_discard_q[0];
@@ -326,17 +332,17 @@ module ibex_prefetch_buffer #(
 
   always_ff @(posedge clk_i or negedge rst_ni) begin
     if (!rst_ni) begin
-      valid_req_q          <= 1'b0;
-      discard_req_q        <= 1'b0;
-      rdata_outstanding_q  <= 'b0;
-      branch_discard_q     <= 'b0;
-      rdata_pmp_err_q      <= 'b0;
+      valid_req_q         <= 1'b0;
+      discard_req_q       <= 1'b0;
+      rdata_outstanding_q <= 'b0;
+      branch_discard_q    <= 'b0;
+      rdata_pmp_err_q     <= 'b0;
     end else begin
-      valid_req_q          <= valid_req_d;
-      discard_req_q        <= discard_req_d;
-      rdata_outstanding_q  <= rdata_outstanding_s;
-      branch_discard_q     <= branch_discard_s;
-      rdata_pmp_err_q      <= rdata_pmp_err_s;
+      valid_req_q         <= valid_req_d;
+      discard_req_q       <= discard_req_d;
+      rdata_outstanding_q <= rdata_outstanding_s;
+      branch_discard_q    <= branch_discard_s;
+      rdata_pmp_err_q     <= rdata_pmp_err_s;
     end
   end
 
@@ -344,7 +350,7 @@ module ibex_prefetch_buffer #(
   // Outputs //
   /////////////
 
-  assign instr_req_o  = valid_req;
+  assign instr_req_o = valid_req;
   assign instr_addr_o = instr_addr_w_aligned;
 
   assign valid_o = valid_raw & ~branch_mispredict_i;
