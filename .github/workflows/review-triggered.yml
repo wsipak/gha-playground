@@ -1,0 +1,46 @@
+name: review-triggered
+
+on:
+  workflow_run:
+    workflows: ["upload-event-file"]
+    types:
+      - completed
+
+jobs:
+  review_triggered:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: 'Download artifact'
+        id: get-artifacts
+        uses: actions/github-script@v3.1.0
+        with:
+          script: |
+            var artifacts = await github.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: ${{github.event.workflow_run.id }},
+            });
+            var matchArtifact = artifacts.data.artifacts.filter((artifact) => {
+              return artifact.name == "event.json"
+            })[0];
+            var download = await github.actions.downloadArtifact({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               artifact_id: matchArtifact.id,
+               archive_format: 'zip',
+            });
+      - run: |
+          unzip event.json.zip
+      - name: 'Backup the existing event file and temporarily use the fetched one'
+        run: |
+          cp "$GITHUB_EVENT_PATH" ./event.json.backup
+          cp ./event.json "$GITHUB_EVENT_PATH"
+      - name: Run Verible action with Reviewdog
+        uses: antmicro/verible-actions@main
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Rollback the event file
+        run: cp ./event.json.backup "$GITHUB_EVENT_PATH"
