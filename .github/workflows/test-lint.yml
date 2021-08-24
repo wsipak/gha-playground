@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: antmicro/verible-actions@main
+      - uses: antmicro/verible-linter-action@main
         with:
           paths: |
             ./rtl/ibex_alu.sv
@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: antmicro/verible-actions@main
+      - uses: antmicro/verible-linter-action@main
         with:
           paths: |
             ./rtl
@@ -39,7 +39,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: antmicro/verible-actions@main
+      - uses: antmicro/verible-linter-action@main
         with:
           exclude_paths: |
             ./rtl/ibex_decoder.sv
@@ -49,7 +49,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: antmicro/verible-actions@main
+      - uses: antmicro/verible-linter-action@main
         with:
           exclude_paths: |
             ./rtl

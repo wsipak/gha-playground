@@ -36,6 +36,6 @@ jobs:
       - run: |
           unzip event.json.zip
       - name: Run Verible action with Reviewdog
-        uses: antmicro/verible-actions@event_override
+        uses: antmicro/verible-linter-action@event_override
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
