@@ -14,5 +14,3 @@ jobs:
           paths: |
             ./rtl/*.sv
           github_token: ${{ secrets.GITHUB_TOKEN }}
-        env:
-          GITHUB_EVENT_PATH: ''
