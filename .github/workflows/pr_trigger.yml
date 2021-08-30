@@ -1,0 +1,18 @@
+name: pr-trigger
+
+on:
+  pull_request:
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Copy event file
+        run: cp "$GITHUB_EVENT_PATH" ./event.json
+
+      - name: Upload event file as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: event.json
+          path: event.json
