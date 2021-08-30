@@ -1,10 +1,10 @@
-name: pr-trigger
+name: trigger-format
 
 on:
   pull_request:
 
 jobs:
-  upload:
+  upload_event:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

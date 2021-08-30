@@ -2,7 +2,7 @@ name: format-verible
 
 on:
   workflow_run:
-    workflows: ["pr-trigger"]
+    workflows: ["trigger-format"]
     types:
       - completed
 
