@@ -1,4 +1,4 @@
-name: format-verible
+name: format-triggered
 
 on:
   workflow_run:
